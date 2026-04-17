@@ -1,8 +1,12 @@
+import Hero from "@/components/Hero"
+import NavBar from "@/components/NavBar"
+
 const page = () => {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello, Apple Macbook Pro!
-    </h1>
+    <main>
+      <NavBar />
+      <Hero />
+    </main>
   )
 }
 
