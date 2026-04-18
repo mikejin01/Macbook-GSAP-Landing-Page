@@ -12,6 +12,7 @@ import * as THREE from 'three'
 import React from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import { asset } from '@/lib/asset'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -98,7 +99,7 @@ type GLTFResult = GLTF & {
 }
 
 export default function BMW_M1_Model(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/models/bmw-m1-transformed.glb') as GLTFResult
+  const { nodes, materials } = useGLTF(asset('/models/bmw-m1-transformed.glb')) as GLTFResult
   return (
     <group {...props} dispose={null}>
       <mesh name="WHEEL_RR_RT_Battistrada_0" castShadow receiveShadow geometry={nodes.WHEEL_RR_RT_Battistrada_0.geometry} material={materials.RT_Battistrada} position={[-0.877, 0.389, -1.559]} scale={0.012} />
@@ -143,4 +144,4 @@ export default function BMW_M1_Model(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('/models/bmw-m1-transformed.glb')
+useGLTF.preload(asset('/models/bmw-m1-transformed.glb'))

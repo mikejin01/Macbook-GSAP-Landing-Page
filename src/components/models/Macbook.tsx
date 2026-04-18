@@ -13,6 +13,7 @@ import { useGLTF, useVideoTexture } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import useMacbookStore from '@/store'
 import { noChangeParts } from '@/constants'
+import { asset } from '@/lib/asset'
 import { Color, SRGBColorSpace } from 'three'
 
 type GLTFResult = GLTF & {
@@ -63,7 +64,7 @@ type GLTFResult = GLTF & {
 
 export default function MacbookModel(props: JSX.IntrinsicElements['group']) {
   const { color, texture } = useMacbookStore();
-  const { nodes, materials, scene } = useGLTF('/models/macbook-transformed.glb') as GLTFResult
+  const { nodes, materials, scene } = useGLTF(asset('/models/macbook-transformed.glb')) as GLTFResult
 
   const screen = useVideoTexture(texture);
 
@@ -104,4 +105,4 @@ export default function MacbookModel(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('/models/macbook-transformed.glb')
+useGLTF.preload(asset('/models/macbook-transformed.glb'))

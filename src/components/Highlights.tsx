@@ -2,6 +2,7 @@
 import { useGSAP } from "@gsap/react"
 import { useMediaQuery } from "react-responsive"
 import gsap from "gsap"
+import { asset } from "@/lib/asset"
 
 const Highlights = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 1024px)' })
@@ -27,21 +28,21 @@ const Highlights = () => {
             <div className="masonry">
                 <div className="left-column">
                     <div>
-                        <img src="/laptop.png" alt="laptop" />
+                        <img src={asset("/laptop.png")} alt="laptop" />
                         <p>Fly through demanding tasks up to 9.8x faster.</p>
                     </div>
                     <div>
-                        <img src="/sun.png" alt="Sun" />
+                        <img src={asset("/sun.png")} alt="Sun" />
                         <p>A stunning<br/>Liquid Retina XDR<br/>display.</p>
                     </div>
                 </div>
                 <div className="right-column">
                     <div className="apple-gradient">
-                        <img src="/ai.png" alt="AI " />
+                        <img src={asset("/ai.png")} alt="AI " />
                         <p>Built for<br/> <span>Apple Intelligence.</span></p>
                     </div>
                     <div>
-                        <img src="/battery.png" alt="Battery" />
+                        <img src={asset("/battery.png")} alt="Battery" />
                         <p>
                             Up to
                             <span className="green-gradient">{' '}14 more hours{' '}</span>

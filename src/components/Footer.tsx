@@ -1,4 +1,5 @@
 import { footerLinks } from "@/constants"
+import { asset } from "@/lib/asset"
 
 const Footer = () => {
   return (
@@ -7,7 +8,7 @@ const Footer = () => {
             <p>
                 More ways to shop: Find an Apple Store or other retailer near you. Or call 000800 040 1966.
             </p>
-            <img src="/logo.svg" alt="Apple logo" />
+            <img src={asset("/logo.svg")} alt="Apple logo" />
         </div>
         <hr />
         <div className="links">

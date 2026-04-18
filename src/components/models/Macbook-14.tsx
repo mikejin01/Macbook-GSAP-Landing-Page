@@ -14,6 +14,7 @@ import { GLTF } from 'three-stdlib'
 import useMacbookStore from '@/store'
 import { noChangeParts } from '@/constants'
 import { useEffect } from 'react'
+import { asset } from '@/lib/asset'
 import { Color, SRGBColorSpace } from 'three'
 
 type GLTFResult = GLTF & {
@@ -64,9 +65,9 @@ type GLTFResult = GLTF & {
 
 export default function MacbookModel14(props: JSX.IntrinsicElements['group']) {
   const { color } = useMacbookStore();
-  const { nodes, materials, scene } = useGLTF('/models/macbook-14-transformed.glb') as GLTFResult;
+  const { nodes, materials, scene } = useGLTF(asset('/models/macbook-14-transformed.glb')) as GLTFResult;
   
-  const texture = useTexture('/screen.png');
+  const texture = useTexture(asset('/screen.png'));
   texture.colorSpace = SRGBColorSpace;
   texture.needsUpdate = true;
   
@@ -107,4 +108,4 @@ export default function MacbookModel14(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('/models/macbook-14-transformed.glb')
+useGLTF.preload(asset('/models/macbook-14-transformed.glb'))
