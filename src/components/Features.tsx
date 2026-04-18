@@ -3,8 +3,8 @@ import { Canvas } from "@react-three/fiber"
 import StudioLights from "./three/StudioLights"
 import { features, featureSequence } from "@/constants";
 import clsx from "clsx";
-import { Suspense, useEffect, useRef } from "react";
-import { Html } from "@react-three/drei";
+import { Suspense, useRef } from "react";
+import { Html, useVideoTexture } from "@react-three/drei";
 import MacbookModel from "./models/Macbook";
 import { useMediaQuery } from "react-responsive";
 import useMacbookStore from "@/store";
@@ -12,25 +12,15 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { asset } from "@/lib/asset";
 
+const VideoTexturePreload = ({ url }: { url: string }) => {
+    useVideoTexture(url);
+    return null;
+};
+
 const ModelScroll = () => {
     const groupRef = useRef(null);
     const isMobile = useMediaQuery({ query: '(max-width: 1024px)' })
     const { setTexture } = useMacbookStore();
-
-    // Pre-load all feature videos during component mount
-    useEffect(() => {
-        featureSequence.forEach((feature) => {
-            const v = document.createElement('video');
-            Object.assign(v, {
-                src: feature.videoPath,
-                muted: true,
-                playsInline: true,
-                preload: 'auto',
-                crossOrigin: 'anonymous',
-            });
-            v.load();
-        })
-    }, []);
 
     useGSAP(() => {
         // 3D MODEL ROTATION ANIMATION
@@ -76,6 +66,9 @@ const ModelScroll = () => {
     return (
         <group ref={groupRef}>
             <Suspense fallback={<Html><h1 className="text-white text-3xl uppercase">Loading...</h1></Html>}>
+                {featureSequence.map((f) => (
+                    <VideoTexturePreload key={f.videoPath} url={f.videoPath} />
+                ))}
                 <MacbookModel scale={ isMobile ? 0.05 : 0.08 } position={[0, -1, 0]}/>
             </Suspense>
         </group>
