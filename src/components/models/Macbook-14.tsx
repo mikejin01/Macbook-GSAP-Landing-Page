@@ -13,8 +13,8 @@ import { useGLTF, useTexture } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import useMacbookStore from '@/store'
 import { noChangeParts } from '@/constants'
-import { Color } from 'three'
 import { useEffect } from 'react'
+import { Color, SRGBColorSpace } from 'three'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -65,7 +65,11 @@ type GLTFResult = GLTF & {
 export default function MacbookModel14(props: JSX.IntrinsicElements['group']) {
   const { color } = useMacbookStore();
   const { nodes, materials, scene } = useGLTF('/models/macbook-14-transformed.glb') as GLTFResult;
+  
   const texture = useTexture('/screen.png');
+  texture.colorSpace = SRGBColorSpace;
+  texture.needsUpdate = true;
+  
   useEffect(() => {
     scene.traverse((child) =>{
       if(child.isMesh) {
@@ -95,7 +99,7 @@ export default function MacbookModel14(props: JSX.IntrinsicElements['group']) {
       <mesh name="Object_82" castShadow receiveShadow geometry={nodes.Object_82.geometry} material={materials.gMtYExgrEUqPfln} rotation={[Math.PI / 2, 0, 0]} />
       <mesh name="Object_96" castShadow receiveShadow geometry={nodes.Object_96.geometry} material={materials.PaletteMaterial003} rotation={[Math.PI / 2, 0, 0]} />
       <mesh name="Object_107" castShadow receiveShadow geometry={nodes.Object_107.geometry} material={materials.JvMFZolVCdpPqjj} rotation={[Math.PI / 2, 0, 0]} />
-      <mesh name="Object_123" castShadow receiveShadow geometry={nodes.Object_123.geometry} material={materials.sfCQkHOWyrsLmor} rotation={[Math.PI / 2, 0, 0]} >
+      <mesh name="Object_123" castShadow receiveShadow geometry={nodes.Object_123.geometry} rotation={[Math.PI / 2, 0, 0]} >
         <meshBasicMaterial map={texture} />
       </mesh>
       <mesh name="Object_127" castShadow receiveShadow geometry={nodes.Object_127.geometry} material={materials.ZCDwChwkbBfITSW} rotation={[Math.PI / 2, 0, 0]} />
