@@ -1,3 +1,5 @@
+import { asset } from "@/lib/asset";
+
 const navLinks = [
     { label: "Store" },
     { label: "Mac" },
@@ -27,13 +29,13 @@ const noChangeParts = [
 ];
 
 const performanceImages = [
-    { id: "p1", src: "/performance1.png" },
-    { id: "p2", src: "/performance2.png" },
-    { id: "p3", src: "/performance3.png" },
-    { id: "p4", src: "/performance4.png" },
-    { id: "p5", src: "/performance5.jpg" },
-    { id: "p6", src: "/performance6.png" },
-    { id: "p7", src: "/performance7.png" },
+    { id: "p1", src: asset("/performance1.png") },
+    { id: "p2", src: asset("/performance2.png") },
+    { id: "p3", src: asset("/performance3.png") },
+    { id: "p4", src: asset("/performance4.png") },
+    { id: "p5", src: asset("/performance5.jpg") },
+    { id: "p6", src: asset("/performance6.png") },
+    { id: "p7", src: asset("/performance7.png") },
 ];
 
 const performanceImgPositions = [
@@ -121,8 +123,6 @@ const features = [
         styles: "left-5 md:left-20 top-[90%] opacity-0 translate-y-5",
     },
 ];
-
-import { asset } from "@/lib/asset";
 
 const featureSequence = [
     { videoPath: asset("/videos/feature-1.mp4"), boxClass: ".box1", delay: 1 },
