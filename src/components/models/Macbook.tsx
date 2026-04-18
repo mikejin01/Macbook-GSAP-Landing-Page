@@ -8,10 +8,12 @@ Source: https://sketchfab.com/3d-models/macbook-pro-m3-16-inch-2024-8e34fc2b3031
 Title: macbook pro M3 16 inch 2024
 */
 
-import * as THREE from 'three'
-import React from 'react'
-import { useGLTF } from '@react-three/drei'
+import { useEffect } from 'react'
+import { useGLTF, useVideoTexture } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import useMacbookStore from '@/store'
+import { noChangeParts } from '@/constants'
+import { Color, SRGBColorSpace } from 'three'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -60,7 +62,21 @@ type GLTFResult = GLTF & {
 }
 
 export default function MacbookModel(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/models/macbook-transformed.glb') as GLTFResult
+  const { color, texture } = useMacbookStore();
+  const { nodes, materials, scene } = useGLTF('/models/macbook-transformed.glb') as GLTFResult
+
+  const screen = useVideoTexture(texture);
+
+  useEffect(() => {
+    scene.traverse((child) =>{
+      if(child.isMesh) {
+        // Change color only if the part name is NOT noChangeParts
+        if(!noChangeParts.includes(child.name)) {
+          child.material.color = new Color(color);
+        }
+      }
+    })
+  }, [color, scene])
   return (
     <group {...props} dispose={null}>
       <mesh name="Object_10" castShadow receiveShadow geometry={nodes.Object_10.geometry} material={materials.PaletteMaterial001} rotation={[Math.PI / 2, 0, 0]} />
@@ -80,7 +96,9 @@ export default function MacbookModel(props: JSX.IntrinsicElements['group']) {
       <mesh name="Object_82" castShadow receiveShadow geometry={nodes.Object_82.geometry} material={materials.gMtYExgrEUqPfln} rotation={[Math.PI / 2, 0, 0]} />
       <mesh name="Object_96" castShadow receiveShadow geometry={nodes.Object_96.geometry} material={materials.PaletteMaterial003} rotation={[Math.PI / 2, 0, 0]} />
       <mesh name="Object_107" castShadow receiveShadow geometry={nodes.Object_107.geometry} material={materials.JvMFZolVCdpPqjj} rotation={[Math.PI / 2, 0, 0]} />
-      <mesh name="Object_123" castShadow receiveShadow geometry={nodes.Object_123.geometry} material={materials.sfCQkHOWyrsLmor} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh name="Object_123" castShadow receiveShadow geometry={nodes.Object_123.geometry} rotation={[Math.PI / 2, 0, 0]}>
+        <meshBasicMaterial map={screen} />
+      </mesh>
       <mesh name="Object_127" castShadow receiveShadow geometry={nodes.Object_127.geometry} material={materials.ZCDwChwkbBfITSW} rotation={[Math.PI / 2, 0, 0]} />
     </group>
   )
